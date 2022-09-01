@@ -17,8 +17,10 @@ const App = () => {
   }, [contacts]);
 
   const onSubmitData = data => {
-    const filteredNames = contacts.filter(
-      contact => contact.name.toLowerCase() === data.name.toLowerCase()
+    const normolizedFilter = filter.toLowerCase();
+
+    const filteredNames = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normolizedFilter)
     );
     console.log(filteredNames);
 
