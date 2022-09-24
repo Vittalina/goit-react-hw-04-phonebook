@@ -24,7 +24,7 @@ const App = () => {
     );
     console.log(filteredNames);
 
-    if (filteredNames.length > 0) {
+    if (filteredNames.length === data.name) {
       alert(`${data.name} is already in contacts`);
       return;
     }
