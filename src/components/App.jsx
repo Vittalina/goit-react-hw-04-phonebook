@@ -17,14 +17,7 @@ const App = () => {
   }, [contacts]);
 
   const onSubmitData = data => {
-    const normalizedFilter = filter.toLowerCase();
-
-    const filteredNames = contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
-    console.log(filteredNames);
-
-    if (filteredNames.length === data.name) {
+    if (contacts.filter(contact => contact.name === data.name).length > 0) {
       alert(`${data.name} is already in contacts`);
       return;
     }
@@ -36,15 +29,19 @@ const App = () => {
     });
   };
 
-  const filterByName = value => {
-    setFilter({
-      filter: value.filter,
-    });
+  const changeFilter = e => {
+    setFilter(e.currentTarget.value);
   };
 
   const onClickDelete = id => {
     setContacts(contacts.filter(contact => contact.id !== id));
   };
+
+  const normalizedFilter = filter.toLowerCase();
+  const filteredNames = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(normalizedFilter)
+  );
+  console.log(filteredNames);
 
   return (
     <Box
@@ -62,8 +59,8 @@ const App = () => {
       <Phonebook onSubmit={onSubmitData} />
       <h2>Contacts</h2>
 
-      <Filter onChange={filterByName} />
-      <Contacts contacts={contacts} onClickDelete={onClickDelete} />
+      <Filter value={filter} onChange={changeFilter} />
+      <Contacts contacts={filteredNames} onClickDelete={onClickDelete} />
     </Box>
   );
 };
